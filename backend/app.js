@@ -10,9 +10,10 @@ mongoose.connect('mongodb+srv://dbUser:dbUserPassword@cluster0-dcaaf.mongodb.net
   console.log('connected to database')
 })
 .catch(() => {
-  console.log('connection failed');
-
+  console.log('connection failed')
 });
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,6 +29,20 @@ app.use((req, res, next) => {
     "GET, POST, PATCH, DELETE, OPTIONS"
   );
   next();
+});
+
+
+
+app.get('/api/quiz', (req, res, next) => {
+  Quiz.find()
+  .then(documents => {
+    console.log('success')
+  }).catch(() =>{
+    console.log('Failed');
+  })
+  res.status(200).json({
+    message: "Question Fetch Successfully"
+  })
 });
 
 
